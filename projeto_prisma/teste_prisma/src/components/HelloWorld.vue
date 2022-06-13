@@ -65,23 +65,28 @@ export default {
         //alert("O campo de e-mail está em branco!");
         return "O campo de e-mail está em branco!";
       }
-      var raw = JSON.stringify(this.estado);
-      var raw2 = JSON.stringify(this.email);
+      //var raw = JSON.stringify(this.estado);
+      //var raw2 = JSON.stringify(this.email);
 
-      var myHeaders = new Headers();
-      myHeaders.append("Content-Type", "application/json");
+      let endpoint = "https://localhost:44311/api/projeto?email="+this.email+"&estado="+this.estado;
+      request.open("GET",endpoint)
+      request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+      request.send(JSON.stringify(this.email, this.estado));
 
-      var requestOptions = {
-        method: 'Post',
-        body: raw, raw2,
-        headers: myHeaders,
-        redirect: 'follow'
-      };
+      //var myHeaders = new Headers();
+      //myHeaders.append("Content-Type", "application/json");
 
-      fetch("https://localhost:7036/api/projeto", requestOptions)
-        .then(response => response.text())
-        .then(result => console.log(result))
-        .catch(error => console.log('error', error));
+      //var requestOptions = {
+      //  method: 'Post',
+      //  body: raw, raw2,
+      //  headers: myHeaders,
+      //  redirect: 'follow'
+      //};
+
+      //fetch("https://localhost:7036/api/projeto", requestOptions)
+      //  .then(response => response.text())
+      //  .then(result => console.log(result))
+      //  .catch(error => console.log('error', error));
       
       this.estado = "";
       this.email = "";
